@@ -1,0 +1,385 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>math</title>
+    <style>
+        body{
+            user-select: none;
+        }
+        .header {
+            background-color: aqua;
+            padding: 10px;
+
+            font-size: 40px;
+        }
+.main {
+            display: flex;
+            justify-content: center;
+        }
+.option>span {
+            display: block;
+            width: auto;
+            font-size: 30px;
+            box-shadow: 2px 2px rgb(138, 132, 132);
+            /* width: 40px; */
+            height: 35px;
+            padding: 10px;
+            margin-top: 8px;
+            cursor: pointer;
+        }
+.option>span:hover {
+            background-color: rgb(233, 16, 16);
+        }
+.questionbox {
+            margin-top: 10px;
+            border: 1px solid rgb(138, 132, 132);
+            padding: 20px;
+            display: block;
+            box-shadow: 4px 4px rgb(138, 132, 132);
+            width: 200px;
+            /* min-height: 30px; */
+        }
+#question {
+            width: 100%;
+            font-size: 35px;
+            background-color: rgb(132, 134, 128);
+            margin-top: 0px;
+            padding: 10px;
+            height: 50px;
+        }
+.option {
+            margin-top: 20px;
+            padding: 0px;
+        }
+#modal {
+            background: rgba(0, 0, 0, 0.7);
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            display: none;
+            justify-content: center;
+        }
+#modal-form {
+            background: #fff;
+            position: relative;
+            width: 75%;
+            top: 20%;
+            display: grid;
+            justify-content: center;
+            padding: 15px;
+            border-radius: 4px;
+            height: 50%;
+            font-size: 20px;
+            border: 2px solid red;
+        }
+#close-btn {
+            background: red;
+            width: 30px;
+            height: 30px;
+            color: white;
+            line-height: 30px;
+            text-align: center;
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: inline-block;
+        }
+.menudiv{
+            font-size: 50px;
+            color: rgb(221, 245, 9);
+        }
+        .resultdiv{
+            display: flex;
+            justify-content: center;
+            padding-top: 20px;
+}
+#resultmodal {
+            background: rgba(0, 0, 0, 0.7);
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            display: none;
+            justify-content: center;
+        }
+#resultmodal-form {
+            background: #fff;
+            position: relative;
+            width: 75%;
+            top: 20%;
+            display: grid;
+            justify-content: center;
+            padding: 15px;
+            border-radius: 4px;
+            height: 50%;
+            font-size: 20px;
+            border: 2px solid red;
+        }
+        .trybtn{
+            border: 1px solid red;
+          height: 30px;
+          font-size: 23px;
+          background-color: rgb(28, 179, 28);
+          padding-top: 0px;
+          color: rgb(244, 250, 247);
+          cursor: pointer;
+        }
+        .total{
+            color: blue;
+        }.right{
+            color: rgb(43, 255, 0);
+        }.wrong{
+            color: red;
+        }
+        #result{
+            background-color: rgb(29, 168, 192);
+            color: white;
+            width: 130px;
+            height: 30px;
+            font-size: 23;
+            padding-bottom: 15px;
+            border: 2px solid red;
+            cursor: pointer;
+
+        }
+        .headdiv{
+            color:  rgb(255, 0, 0);
+        }
+        .headdiv>span{
+            cursor: pointer;
+        }
+        .aboutdiv{
+display: flex;
+justify-content: center;
+}
+        .about{
+            color:rgb(55, 0, 255);
+            font-size: 30px;
+        }
+        .leveldiv{
+            color:rgb(55, 0, 255);
+            font-size: 25px;
+        }
+        .menucontent>.time{
+            color:rgb(55, 0, 255);
+            font-size: 25px;
+        }
+        .aboutcon{
+            color: rgb(233, 15, 186);
+        }
+        .aboutcon>a{
+            text-decoration: none;
+}
+
+    </style>
+</head>
+
+<body>
+    <div id="modal">
+        <div id="modal-form">
+           
+            <div class = "menudiv">Menu</div>
+
+            <div class="menucontent">
+               <div class = "time">
+               Time: <select name="" id="time" >
+                <option value="3000" selected>3 sec</option>
+                <option value="5000">5 sec</option>
+                <option value="10000">10 sec</option>
+
+            </select>
+               </div>
+                <div class="leveldiv">
+                    Level :<select name="" id="level">
+                        <option value="easy" selected>easy</option>
+                        <option value="hard">hard</option>
+    
+                    </select>
+                </div>
+              
+              
+               <div class="aboutdiv"><div><span class="about">About : </span><br><span class="aboutcon">This website is created 
+                   and mentained by Satyam Singh. <br><a href="">see source</a>
+               </span>
+              </div></div>
+            </div>
+            <div id="close-btn" onclick="closebtn()">X</div>
+        </div>
+
+    </div>
+    <!-- model -->
+    <div id="resultmodal">
+        <div id="resultmodal-form">
+            <div class = "menudiv">Result</div>
+            <div class="resultdata">
+                <span class="total"> Total Question : <span id="tq"></span></span><br>
+                <span class="right"> Right Answer : <span id="ra"></span></span><br>
+                <span class="wrong"> Wrong Answer : <span id="wa"></span></span><br>
+               
+            </div>
+            <button class="trybtn" onclick="tryagain()">try again</button>
+        </div></div>
+    <!-- model2 -->
+    <div class="header">
+        <div class="headdiv"><span onclick="menu()">
+                &#9776
+            </span>Quiz Time</div>
+    </div>
+
+    <div class="main">
+        <div class="questionbox">
+            <div id="question"></div>
+            <div class="option">
+                <span class = "check" id="o1" onclick="get(this)"></span>
+                <span class = "check" id="o2" onclick="get(this)"></span>
+                <span class = "check" id="o3" onclick="get(this)"></span>
+                <span class = "check" id="o4" onclick="get(this)"></span>
+            </div>
+           
+         
+        </div>
+       
+    </div>
+<div class="resultdiv"> <button id= "result" onclick="result()">Result</button></div>
+    
+   <script>
+  var  i = 1;
+var option1;
+var r = 0 ;
+var w = 0 ;
+function main(para){const arr = ['+','-','*','+','-','*','+','-','*','-','*'];
+     
+        function setdata(par){
+        
+          console.log(i);
+
+         var random1 = Math.round((Math.random() * 10));
+         var random2 = Math.round((Math.random() * 10));
+         var random3 = Math.round((Math.random() * par));
+         var random4 = Math.round((Math.random() * par));
+         var random5 = Math.round((Math.random() * par));
+         
+         var random6 = Math.round((Math.random() * 10));
+         var random7 = Math.round((Math.random() * 10));
+         var sum = random3 + (arr[random1]) + random4 + (arr[random2]) + random5;
+
+         var question = sum;
+         option1 = eval(sum);
+         var option2 = eval(sum) + random2 - random6;
+         var option3 = eval(sum) + random1 - random7;
+         var option4 = eval(sum) + random1 - random6;
+const array = [option1,option2,option3,option4];
+
+array.sort(function(a,b){
+  return  0.5-Math.random()
+});
+
+localStorage.setItem("qnum", i);
+
+document.getElementById("question").innerHTML ="1 :  " + sum;
+document.getElementById("o1").innerHTML = array[0];
+document.getElementById("o2").innerHTML = array[1];
+document.getElementById("o3").innerHTML = array[2];
+document.getElementById("o4").innerHTML = array[3];
+i += 1;
+
+}
+setdata(para);
+        
+
+document.getElementById("o1").style.background="white";
+document.getElementById("o2").style.background="white";
+document.getElementById("o3").style.background="white";
+document.getElementById("o4").style.background="white";  
+
+}
+
+function get(per){
+    var choosed = per.innerHTML
+   
+    if(choosed == option1){
+        r += 1;
+        
+        per.style.background = "green";
+       setTimeout(() => {
+        levelfun();
+       }, 500); 
+    }else{
+        w += 1;
+       per.style.background = "red";
+       setTimeout(() => {
+        levelfun();
+       }, 500); 
+    }
+}
+ function menu() {
+            clearTimeout(setfordata);
+            document.getElementById("modal").style.display = "flex";
+            i = 1;
+            r = 0;
+            w = 0;
+ }
+        function closebtn() {
+            levelfun();
+            document.getElementById("modal").style.display = "none";
+        }
+
+var setfordata;
+
+        function levelfun(){
+            clearTimeout(setfordata);
+        if(document.getElementById("level").value=="easy" && document.getElementById("time").value=="3000"){
+            console.log("10000"); main(10);
+        setfordata = setInterval(main,3000,10);
+}else if(document.getElementById("level").value=="easy" && document.getElementById("time").value=="5000"){
+    console.log("5000"); main(10);
+        setfordata = setInterval(main,5000,10);
+}else if(document.getElementById("level").value=="easy" && document.getElementById("time").value=="10000"){
+    console.log("3000"); main(10);
+    setfordata = setInterval(main,10000,10);
+}else if(document.getElementById("level").value=="hard" && document.getElementById("time").value=="3000"){
+    main(100);
+    setfordata = setInterval(main,3000,100);
+}else if(document.getElementById("level").value=="hard" && document.getElementById("time").value=="5000"){
+    main(100);
+    setfordata = setInterval(main,5000,100);
+}else if(document.getElementById("level").value=="hard" && document.getElementById("time").value=="10000"){
+    main(100);
+    setfordata = setInterval(main,10000,100);
+}else{console.log("level else");}
+        }
+
+        levelfun();
+
+
+        function result() {
+            
+            clearTimeout(setfordata);
+            document.getElementById("resultmodal").style.display = "flex";
+            document.getElementById("tq").innerText=  localStorage.getItem("qnum") - 1;
+            document.getElementById("ra").innerText= r
+            document.getElementById("wa").innerHTML= w
+            i = 1;
+            r = 0;
+            w = 0;
+        
+        }
+ function tryagain() {
+            levelfun();
+            document.getElementById("resultmodal").style.display = "none";
+        }
+
+</script>
+</body>
+
+</html>
