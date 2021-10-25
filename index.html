@@ -179,6 +179,12 @@ justify-content: center;
             text-decoration: none;
 }
 
+audio{
+     width: 0%;
+     height:0%;
+ }
+  
+
     </style>
 </head>
 
@@ -225,7 +231,7 @@ justify-content: center;
                 <span class="wrong"> Wrong Answer : <span id="wa"></span></span><br>
                
             </div>
-            <button class="trybtn" onclick="tryagain()">try again</button>
+            <button class="trybtn" onclick="tryagain()">try again </button>
         </div></div>
     <!-- model2 -->
     <div class="header">
@@ -249,7 +255,7 @@ justify-content: center;
        
     </div>
 <div class="resultdiv"> <button id= "result" onclick="result()">Result</button></div>
-    
+<audio controls autoplay id="audio"><source src="Yes  King Arthur.mp3" type="audio/mpeg" > </audio>
    <script>
   var  i = 1;
 var option1;
@@ -307,7 +313,7 @@ function get(per){
    
     if(choosed == option1){
         r += 1;
-        
+        document.getElementById("audio").play();
         per.style.background = "green";
        setTimeout(() => {
         levelfun();
